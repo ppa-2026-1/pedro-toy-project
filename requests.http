@@ -1,0 +1,98 @@
+# USER API ================================================================
+
+@host=localhost:8080
+
+### TODOS OS USUÁRIOS
+GET /api/v1/users HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+### Criar usuário Pedro
+POST /api/v1/users HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "email": "pedro@aluno.ifrs.com.br",
+    "password": "1234RT56",
+    "handle": "pedrao",
+    "name": "pedro",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "company": "ifrs inc"
+}
+
+### Criar usuário Barbara
+POST /api/v1/users HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "email": "babi@aluno.ifrs.com.br",
+    "password": "12345685a",
+    "handle": "babi",
+    "name": "Barbara",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "company": "ifrs inc"
+}
+
+### TODOS os tickets
+GET /api/v1/tickets HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### Criar ticket sem destinatário (próprio criador é o destinatário)
+POST /api/v1/tickets HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "acao": "Corrigir bug",
+    "objeto": "Login",
+    "detalhes": "Erro ao logar",
+    "criadorHandle": "pedrao"
+}
+
+### Criar ticket com destinatário diferente
+POST /api/v1/tickets HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "acao": "Ajustar layout",
+    "objeto": "Página inicial",
+    "detalhes": "Botão desalinhado",
+    "observadores": "marcio@professorifrs.com.br",
+    "criadorHandle": "pedrao",
+    "destinatarioHandle": "babi"
+}
+
+### Criar ticket com destinatário diferente
+POST /api/v1/tickets HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "acao": "Recuperação de conta",
+    "objeto": "Banco de dados",
+    "detalhes": "Recuperar a conta do admin",
+    "observadores": "marcio@professorifrs.com.br, igor@professorifrs.com.br",
+    "criadorHandle": "babi",
+    "destinatarioHandle": "pedrao"
+}
+
+
+### Colocar ticket em andamento
+PATCH /api/v1/tickets/13/status?status=ANDAMENTO&responsavelId=20 HTTP/1.1
+Host: {{host}}
+
+### Ticket cancelado
+PATCH /api/v1/tickets/10/status?status=CANCELADO&motivo=Erro grave no layout
+Host: {{host}}
+
+### Ticket resolvido
+PATCH /api/v1/tickets/9/status?status=RESOLVIDO
+Host: {{host}}
