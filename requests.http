@@ -1,0 +1,99 @@
+# USER API ================================================================
+
+@host=localhost:8080
+
+### TODOS OS USUÁRIOS
+GET /api/v1/users HTTP/1.1
+Host: localhost:8080
+Accept: application/json
+
+
+### Get all users
+# @name= getAllUsers
+
+GET /api/v1/users HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### Create a new valid User
+# @name = createNewUser
+
+POST /api/v1/users HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "email": "batata@potato.com",
+    "password": "1234RT56",
+    "handle": "papas",
+    "name": "Kartofel",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "company": "potato inc"
+}
+
+
+### Try and create an invalid User
+# @name = tryCreateInvalidUser
+
+POST /api/v1/users HTTP/1.1
+Host: {{host}}
+Content-Type: application/json
+
+{
+    "email": "batata@potato.com",
+    "password": "1234",
+    "handle": "papas",
+    "name": "Kartofel",
+    "roles": [
+        "ROLE_USER"
+    ],
+    "company": "potato inc"
+}
+
+### PÁGINA PADRÃO (deve usar page=1, size=10)
+GET /api/v1/vulnerability-reports HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+
+### SEGUNDA PÁGINA COM 2 ITENS
+GET /api/v1/vulnerability-reports?page=2&size=2 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### PRIMEIRA PÁGINA COM 5 ITENS
+GET /api/v1/vulnerability-reports?page=1&size=5 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### PÁGINA INEXISTENTE (deve retornar lista vazia)
+GET /api/v1/vulnerability-reports?page=999&size=10 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### ERRO: Página negativa
+GET /api/v1/vulnerability-reports?page=-1&size=5 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### ERRO: Página zero
+GET /api/v1/vulnerability-reports?page=0&size=10 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### ERRO: Tamanho maior que o limite (padrão 1000) 
+GET /api/v1/vulnerability-reports?page=1&size=2000 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### ERRO: Tamanho negativo
+GET /api/v1/vulnerability-reports?page=1&size=-5 HTTP/1.1
+Host: {{host}}
+Accept: application/json
+
+### ERRO: Tamanho zero
+GET /api/v1/vulnerability-reports?page=1&size=0 HTTP/1.1
+Host: {{host}}
+Accept: application/json
